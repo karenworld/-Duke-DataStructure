@@ -1,0 +1,7 @@
+ArrayList<String> words = new ArrayList<String>();
+words.add("hello");
+words.add("world");
+String s = words.get(1);
+words.set(0, "goodbye")
+
+More powerful than StorageResouce

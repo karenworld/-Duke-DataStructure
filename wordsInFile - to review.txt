@@ -1,0 +1,106 @@
+private HashMap<String, ArrayList<String>>wordsMap;
+	
+	//static String filename = "C:\\Users\\Karen Goh Seow Hui\\Documents\\Coursera-Java\\"
+		//	+ "ProgrammingImprovingGladLibsData\\";
+	
+	public wordsInFiles(){
+	wordsMap = new HashMap<String, ArrayList<String>>();
+							}
+	
+	private void addWordsFromFile(File f){
+		FileResource resource = new FileResource(f.toString()); // note: need to put f.toString 
+		String fileName = f.getName();
+		for(String w : resource.words()){
+			//resource.add(file.toLowerCase());			
+			if(! wordsMap.containsKey(w)){
+			//	ArrayList<String>NewWordFileList = new ArrayList<String>();				
+				//NewWordFileList.add(fileName);		
+				
+				wordsMap.put(w, new ArrayList<String>());
+			//	wordsMap.put(w,  NewWordFileList);
+				wordsMap.get(w).add(fileName); // to learn
+				}
+				if(wordsMap.containsKey(w) && !wordsMap.get(w).contains(fileName)){
+			//  ArrayList<String>currentWordFile = new ArrayList<String>();
+				//if(!wordsMap.get(w).contains(fileName))
+				//wordsMap.get(w).add(fileName);
+				//currentWordFile.add(fileName);
+			//	wordsMap.put(fileName, new ArrayList<String>());
+				wordsMap.get(w).add(fileName);
+			//	NewWordFileList);
+			}
+				}
+				//System.out.println(fileName);
+		}
+	
+	public void buildWordFileMap(){
+		wordsMap.clear();		
+		DirectoryResource dr = new DirectoryResource();	
+		for(File filetoextract : dr.selectedFiles()){
+		addWordsFromFile(filetoextract);
+	}}
+	
+	public int maxNumber(){
+		int maxNoOfFiles = 0;		
+		for(String filewithMostWords : wordsMap.keySet()){
+		//	ArrayList<String> fileList = new ArrayList<String>();
+			
+		int count = wordsMap.get(filewithMostWords).size(); // note how it is written
+			if (count > maxNoOfFiles){
+				 count = maxNoOfFiles;
+					}
+			}
+		return maxNoOfFiles;
+		}	
+	
+		
+	public ArrayList<String> wordsInNumFiles(int number){		
+		ArrayList<String>key = new ArrayList<String>();
+		for(String s : wordsMap.keySet()){
+			int count = wordsMap.get(s).size();
+		//int count = key.size();			
+			if (count == number)
+				key.add(s);
+			}
+				return key;
+	}
+		
+		
+	
+	public void printFiles(String word){
+		System.out.println("The files contain" + word + " are \t");
+			ArrayList<String>nameOfFiles = new ArrayList<String>(); 
+				//	wordsMap.get(w);
+			for(String w : wordsMap.keySet()){
+
+			if ( w == word){
+				wordsMap.get(w);
+				for (int index = 0; index < nameOfFiles.size(); index++ ){
+					System.out.println(nameOfFiles.get(index));
+				}
+			}
+		}
+	}
+	
+	public void test(){
+		buildWordFileMap();
+		int max = maxNumber();
+		ArrayList<String> list = wordsInNumFiles(max); // note: pay attention to this part
+		System.out.println("The greatest number of files a word appears in is "+ max +", and there are "+list.size()+ " such words: ");
+        for (int k = 0; k < list.size(); k++) {
+            System.out.println(list.get(k)+" ");
+        }
+        System.out.println("\t");
+        for (int k = 0; k < list.size(); k++) {
+            printFiles(list.get(k));
+        }
+        
+        
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		wordsInFiles wf = new wordsInFiles();
+		wf.test();
+
+}}

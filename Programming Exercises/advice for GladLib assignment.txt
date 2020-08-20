@@ -1,0 +1,12 @@
+When you are choosing words, you will need to use a loop 
+to make sure you don't use a word that has been used already: 
+choose a word, 
+if it hasn't been used already use it, otherwise choose a word, 
+if it hasn't been used already use it, otherwise choose a word... etc
+
+What kind of loop do you think you will need? 
+Think about whether you know how many times the loop will need to run. 
+When can the loop stop running? How can you check this?
+
+Hope that helps get you on the right track!
+ · 

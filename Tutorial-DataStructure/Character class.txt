@@ -1,0 +1,19 @@
+Character Building
+
+char is primitive, single quotes
+
+'a', '1', '', but using "a" is a String!
+
+The Character class has several methods
+
+	Character.toLowerCase('G') for example
+
+Method Name		Functionality
+---------------		-------------
+isLowerCase(ch)		returns boolean if ch is 'a', 'b'
+
+isDigti(ch)		returns boolean if ch is '0,, '1'
+
+toLowerCase(ch)		returns lowercase version of ch
+
+toUpperCase(ch)		returns uppercase version of ch

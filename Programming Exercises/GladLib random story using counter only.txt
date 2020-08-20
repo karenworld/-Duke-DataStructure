@@ -1,0 +1,23 @@
+private String processWord(String w){
+        int first = w.indexOf("<");
+        int last = w.indexOf(">", first);
+        if(first == 1 || last == -1){
+            return w;
+        }
+        String prefix = w.substring(0, first);
+        String suffix = w.substring(last+1);
+        String sub = getSubstitute(w.substring(first+1, last));
+            int index = used.indexOf(sub);         
+            int usedornot = 1;
+            while (usedornot == 1){
+            if(index == - 1){
+                used.add(sub);                
+                usedornot = 0;
+            }else{
+                  
+                sub = getSubstitute(w.substring(first+1, last)); 
+                index = used.indexOf(sub);
+                
+            }}
+                   return prefix + sub+suffix;
+                }     

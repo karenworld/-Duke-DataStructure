@@ -1,0 +1,159 @@
+import edu.duke.*;
+import java.util.*;
+
+public class GladLib {
+
+    private HashMap<String, ArrayList<String>>GladMap;
+    private Random myRandom;
+    private ArrayList<String>used;
+    private ArrayList<Integer>freq;
+    
+    private static String dataSourceURL = "http://dukelearntoprogram.com/course3/data";
+    private static String dataSourceDirectory = "data";
+    
+    public GladLib(){
+        GladMap = new HashMap<String, ArrayList<String>>();
+        initializeFromSource(dataSourceDirectory);
+        used = new ArrayList<String>();
+        freq = new ArrayList<Integer>();
+        myRandom = new Random();
+    }
+    
+    public GladLib(String source){
+        GladMap = new HashMap<String, ArrayList<String>>();
+        initializeFromSource(source);
+        used = new ArrayList<String>();
+        freq = new ArrayList<Integer>();
+        myRandom = new Random();
+    }
+    
+    private void initializeFromSource(String source) {
+        String [] labels = {"adjective", "noun", "color", "timeframe", "verb", "fruit", "country", "animal", "name"};
+            for (String s : labels){
+                ArrayList <String> list = readIt(source + "/" + s + ".txt");
+                GladMap.put(s, list);
+            }
+        }   
+    
+    
+    private String randomFrom(ArrayList<String> source){
+        int index = myRandom.nextInt(source.size());
+        return source.get(index);
+    }
+    
+    private String getSubstitute(String label) {
+        if (label.equals("number")){
+            return ""+myRandom.nextInt(50)+5;
+        }
+        else{
+            if (!label.equals("number")){
+            return randomFrom(GladMap.get(label));
+          }}
+        return "**UNKNOWN**";
+    }
+    
+    private String processWord(String w){
+        int first = w.indexOf("<");
+        int last = w.indexOf(">", first);
+        if(first == 1 || last == -1){
+            return w;
+        }
+        String prefix = w.substring(0, first);
+        String suffix = w.substring(last+1);
+        String sub = getSubstitute(w.substring(first+1, last));
+            int index = used.indexOf(sub);         
+            int usedornot = 1;
+            while (usedornot == 1){
+            if(index == - 1){
+                used.add(sub);                
+                usedornot = 0;
+                //myWords.add(s);
+                freq.add(1);
+
+            }else{                  
+                sub = getSubstitute(w.substring(first+1, last)); 
+                index = used.indexOf(sub);  
+                if(index != -1){
+                int count = freq.get(index);
+					freq.set(index, count + 1);
+            }}}
+                   return prefix + sub+suffix;
+                }    
+            
+    
+    private void printOut(String s, int lineWidth){
+        int charsWritten = 0;
+        for(String w : s.split("\\s+")){
+            if (charsWritten + w.length() > lineWidth){
+                System.out.println();
+                charsWritten = 0;
+            }
+            System.out.print(w+" ");
+            charsWritten += w.length() + 1;
+        }
+    }
+    
+    private String fromTemplate(String source){
+        String story = "";
+        if (source.startsWith("http")) {
+            URLResource resource = new URLResource(source);
+            for(String word : resource.words()){
+                story = story + processWord(word) + " ";
+            }
+        }
+        else {
+            FileResource resource = new FileResource(source);
+            for(String word : resource.words()){
+                story = story + processWord(word) + " ";
+            }
+        }
+        return story;
+    }
+    
+    private ArrayList<String> readIt(String source){
+        ArrayList<String> list = new ArrayList<String>();
+        if (source.startsWith("http")) {
+            URLResource resource = new URLResource(source);
+            for(String line : resource.lines()){
+                        list.add(line);
+            }
+        }
+        else {
+            FileResource resource = new FileResource(source);
+            for(String line : resource.lines()){
+                list.add(line);
+            }
+        }
+        return list;
+    }
+    
+    public int totalWordsInMap(){
+        int count = 0;
+         for(String w: GladMap.keySet()){
+            count += GladMap.get(w).size();
+                }
+           return count;
+        }
+        
+    public int totalWordsConsidered(){
+        int usedcount = 0;
+        for(String usedlist : GladMap.keySet()){
+           ArrayList<String>used = GladMap.get(usedlist);
+            usedcount = used.size();
+        }
+        return usedcount;
+    }
+    
+    public void makeStory(){
+        System.out.println("\n");
+        String story = fromTemplate("data/madtemplate.txt");
+        printOut(story, 60);
+        System.out.print("\n");
+        System.out.print("The total no of words that were possible to pick from : " + totalWordsInMap());
+        System.out.print("\n");
+        System.out.print("The total no of words that were used in categories : " + totalWordsConsidered());
+}
+    
+
+
+}

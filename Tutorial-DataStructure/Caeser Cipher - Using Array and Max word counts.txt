@@ -1,0 +1,38 @@
+public int[] countLetters(String encrypted){
+	String alph = "abcdefghijklmnopqrstuvwxyz";
+	int[] counts = new int[26];
+	for (int k = 0; k < encrypted.length(); k++){
+		char ch = Character.toLowerCase(encrypted.charAt(k));
+		int dex = alph.indexOf(ch);
+		if (dex != -1){
+		counts[dex] += 1;
+		//return counts;
+		}
+	}
+	return counts;
+}
+
+public String decrypt(String encrypted){
+	//CaeserCipher cc = new CaeserCipher();
+	int[] freqs = countLetters(encrypted);
+	int maxDex = maxIndex(freqs);
+	int dkey = maxDex - 4;
+	if (maxDex < 4){
+		dkey = 26 - (4- maxDex);
+	}
+	return encrypt(encrypted, 26-dkey);
+}
+
+Uvri Fnve,
+  Ef drkkvi nyrk pfl drp yrmv yvriu, kyviv zj ef trbv
+ze kyv tfewvivetv iffd.  Kyv trbv zj r czv.  Gcvrjv bvvg
+nfibzex fe Tflijvir mzuvfj.
+   
+Kyrebj,
+Uivn
+
+	
+ private int maxIndex(int[] freqs) {
+	// TODO Auto-generated method stub
+	return 0;
+}

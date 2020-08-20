@@ -1,0 +1,18 @@
+
+
+The simplest approach would be to generate an ArrayList of all the possible numbers you want to use, the shuffle them with Collection.shuffle. Then just iterate over the list.
+
+EDIT: Your question is really unclear now, given that you've said you don't want the questions in a random order... whereas your sample code appears to be trying to present the questions in a random order. Anyway... here's what I was suggesting:
+
+List<Integer> indexes = new ArrayList<Integer>();
+for (int i = 0; i < types.length; i++) {
+     indexes.add(i);
+}
+Collections.shuffle(indexes);
+
+for (Integer index : indexes) {
+    question.setText(types[index]);
+    getAnswers(index);
+    // Now do something else? It's unclear...
+}
+

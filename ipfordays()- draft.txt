@@ -1,0 +1,24 @@
+public HashMap<String, ArrayList<String>>iPsForDays(){//Date is String and ArrayList is IP address
+    	HashMap<String, ArrayList<String>>ipDay = new HashMap<String, ArrayList<String>>();
+    	for(LogEntry le : records){
+    		Date ipdate = le.getAccessTime();    		
+    		SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
+	    		
+ 		   String day = formatter.format(ipdate);    		  
+ 		   String daytoString = day.toString();  	
+    	
+    	
+    		ArrayList<String>ipAddMost = new ArrayList<String>();	
+    	///ipAdd = ipDay.put(daytoString, ipAdd);
+    	//	if (!ipAddMost.contains(ip)){
+    		String ip = le.getIpAddress();
+    		if (!ipAddMost.contains(ip)){
+    			ipAddMost.add(ip);
+    		}
+    		//ipAdd = ipDay.get(records);
+    		ipDay.put(daytoString, ipAddMost);    		
+    	}
+    	return ipDay;
+    	}
+
+{Sep 14=[84.133.195.161], Sep 21=[84.133.195.161], Sep 30=[177.4.40.87]}

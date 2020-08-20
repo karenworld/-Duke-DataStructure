@@ -1,0 +1,5 @@
+When I said the code adds variable2 to the value of variable1 using the .add() method, 
+I was explaining that the line of code you posted will call .add(variable2) on the value of 
+variable1 in the hashmap. This worked because your keys were Strings and your values were 
+Arraylists. In the example variable1 was a key and variable2 was whatever you want to add to 
+the value (remember this is an arraylist) of variable1 in the map. 

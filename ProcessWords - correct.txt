@@ -1,0 +1,26 @@
+ private String processWord(String w){
+        int first = w.indexOf("<");
+        int last = w.indexOf(">",first);
+        if (first == -1 || last == -1) 
+         {
+            return w; // returning the words and removing all the brackets <> and the words inside
+        }
+        String prefix = w.substring(0,first);
+        String suffix = w.substring(last+1);
+        String sub = getSubstitute(w.substring(first+1,last));// return replaced words plus the brackets <>
+       
+        int index = wordsReplaced.indexOf(sub);
+        if (index == -1 ){
+            wordsReplaced.add(sub);
+        }        
+        
+        else {    
+           sub = getSubstitute(w.substring(first+1, last));
+           index = wordsReplaced.indexOf(sub);            
+           //wordsReplaced.add(sub);
+            }     
+        
+        return sub;//System.out.println(sub);
+    
+           
+}
